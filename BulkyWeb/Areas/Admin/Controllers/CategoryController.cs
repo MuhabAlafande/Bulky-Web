@@ -1,12 +1,13 @@
-using Bulky.DataAccess.Data;
+using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyWeb.Controllers;
+namespace BulkyWeb.Areas.Admin.Controllers;
 
-public class CategoryController(ApplicationDbContext dbContext) : Controller {
+[Area("Admin")]
+public class CategoryController(IUnitOfWork unitOfWork) : Controller {
     public IActionResult Index() {
-        var categories = dbContext.Categories.ToList();
+        var categories = unitOfWork.CategoryRepository.GetAll().ToList();
         return View(categories);
     }
 
@@ -25,8 +26,8 @@ public class CategoryController(ApplicationDbContext dbContext) : Controller {
         }
 
         if (ModelState.IsValid) {
-            dbContext.Categories.Add(category);
-            dbContext.SaveChanges();
+            unitOfWork.CategoryRepository.Add(category);
+            unitOfWork.Save();
             TempData["success"] = "Category created successfully.";
             return RedirectToAction("Index", "Category");
         }
@@ -37,7 +38,7 @@ public class CategoryController(ApplicationDbContext dbContext) : Controller {
     public IActionResult Edit(int? id) {
         if (id is null or 0) return NoContent();
 
-        var category = dbContext.Categories.Find(id);
+        var category = unitOfWork.CategoryRepository.Get(category => category.Id == id);
         if (category == null) return NotFound();
 
         return View(category);
@@ -46,8 +47,8 @@ public class CategoryController(ApplicationDbContext dbContext) : Controller {
     [HttpPost]
     public IActionResult Edit(Category category) {
         if (!ModelState.IsValid) return View();
-        dbContext.Categories.Update(category);
-        dbContext.SaveChanges();
+        unitOfWork.CategoryRepository.Update(category);
+        unitOfWork.Save();
         TempData["success"] = "Category updated successfully.";
         return RedirectToAction("Index", "Category");
     }
@@ -55,7 +56,7 @@ public class CategoryController(ApplicationDbContext dbContext) : Controller {
     public IActionResult Delete(int? id) {
         if (id is null or 0) return NoContent();
 
-        var category = dbContext.Categories.Find(id);
+        var category = unitOfWork.CategoryRepository.Get(category => category.Id == id);
         if (category == null) return NotFound();
 
         return View(category);
@@ -64,10 +65,10 @@ public class CategoryController(ApplicationDbContext dbContext) : Controller {
     [HttpPost, ActionName("Delete")]
     public IActionResult DeletePost(int? id) {
         if (id is null or 0) return NotFound();
-        var category = dbContext.Categories.Find(id);
+        var category = unitOfWork.CategoryRepository.Get(category => category.Id == id);
         if (category == null) return NotFound();
-        dbContext.Categories.Remove(category);
-        dbContext.SaveChanges();
+        unitOfWork.CategoryRepository.Remove(category);
+        unitOfWork.Save();
         TempData["success"] = "Category deleted successfully.";
 
         return RedirectToAction("Index", "Category");
