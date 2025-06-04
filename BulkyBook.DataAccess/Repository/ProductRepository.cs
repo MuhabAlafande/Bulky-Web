@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
@@ -9,6 +10,9 @@ public class ProductRepository(ApplicationDbContext dbContext) : Repository<Prod
     private readonly ApplicationDbContext _dbContext = dbContext;
 
     public new IEnumerable<Product> GetAll() => _dbContext.Products.Include(p => p.Category).ToList();
+
+    public new Product? Get(Expression<Func<Product, bool>> predicate) =>
+        _dbContext.Products.Include(p => p.Category).FirstOrDefault(predicate);
 
     public void Update(Product product) {
         var productFromDb = _dbContext.Products.FirstOrDefault(p => p.Id == product.Id);
