@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace BulkyWebRazor_Temp.Pages.Categories;
 
 [BindProperties]
-public class Delete(ApplicationDbContext dbContext) : PageModel {
+public class Delete(ApplicationDbContext dbContext) : PageModel
+{
     public Category Category { get; set; }
 
-    public IActionResult OnGet(int? id) {
+    public IActionResult OnGet(int? id)
+    {
         if (id is null or 0) return NotFound();
 
         var category = dbContext.Categories.Find(id);
@@ -19,7 +21,8 @@ public class Delete(ApplicationDbContext dbContext) : PageModel {
         return Page();
     }
 
-    public IActionResult OnPost() {
+    public IActionResult OnPost()
+    {
         dbContext.Categories.Remove(Category);
         dbContext.SaveChanges();
         TempData["success"] = "Category deleted successfully.";

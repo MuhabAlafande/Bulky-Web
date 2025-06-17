@@ -1,18 +1,27 @@
 using Bulky.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bulky.DataAccess.Data;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options) {
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<IdentityUser>(options)
+{
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder) {
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Category>().HasData(new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
             new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
             new Category { Id = 3, Name = "History", DisplayOrder = 3 });
 
-        modelBuilder.Entity<Product>().HasData(new Product {
+        modelBuilder.Entity<Product>().HasData(new Product
+            {
                 Id = 1,
                 Title = "Fortune of Time",
                 Author = "Billy Spark",
@@ -26,7 +35,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 CategoryId = 2,
                 ImageUrl = ""
             },
-            new Product {
+            new Product
+            {
                 Id = 2,
                 Title = "Dark Skies",
                 Author = "Nancy Hoover",
@@ -40,7 +50,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 CategoryId = 3,
                 ImageUrl = ""
             },
-            new Product {
+            new Product
+            {
                 Id = 3,
                 Title = "Vanish in the Sunset",
                 Author = "Julian Button",
@@ -51,10 +62,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 Price = 50,
                 Price50 = 40,
                 Price100 = 35,
-                CategoryId = 18,
+                CategoryId = 3,
                 ImageUrl = ""
             },
-            new Product {
+            new Product
+            {
                 Id = 4,
                 Title = "Cotton Candy",
                 Author = "Abby Muscles",
@@ -68,7 +80,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 CategoryId = 2,
                 ImageUrl = ""
             },
-            new Product {
+            new Product
+            {
                 Id = 5,
                 Title = "Rock in the Ocean",
                 Author = "Ron Parker",
@@ -82,7 +95,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 CategoryId = 3,
                 ImageUrl = ""
             },
-            new Product {
+            new Product
+            {
                 Id = 6,
                 Title = "Leaves and Wonders",
                 Author = "Laura Phantom",
@@ -93,7 +107,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 Price = 23,
                 Price50 = 22,
                 Price100 = 20,
-                CategoryId = 18,
+                CategoryId = 3,
                 ImageUrl = ""
             });
     }

@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.16"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.16"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.16"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.16">
@@ -20,6 +21,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\BulkyBook.DataAccess\BulkyBook.DataAccess.csproj"/>
+        <ProjectReference Include="..\BulkyBook.Models\BulkyBook.Models.csproj"/>
+        <ProjectReference Include="..\BulkyBook.Utility\BulkyBook.Utility.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

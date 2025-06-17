@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace BulkyWebRazor_Temp.Pages.Categories;
 
 [BindProperties]
-public class Create(ApplicationDbContext dbContext) : PageModel {
+public class Create(ApplicationDbContext dbContext) : PageModel
+{
     public Category Category { get; set; }
 
-    public void OnGet() { }
+    public void OnGet()
+    {
+    }
 
-    public IActionResult OnPost() {
+    public IActionResult OnPost()
+    {
         dbContext.Add(Category);
         dbContext.SaveChanges();
         TempData["success"] = "Category created successfully.";

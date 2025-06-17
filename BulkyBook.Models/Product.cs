@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Bulky.Models;
 
-public class Product {
-    [Key]
-    public int Id { get; set; }
+public class Product
+{
+    [Key] public int Id { get; set; }
 
     [Required]
     [MaxLength(30)]
@@ -16,11 +16,9 @@ public class Product {
 
     public string Description { get; set; }
 
-    [Required]
-    public string ISBN { get; set; }
+    [Required] public string ISBN { get; set; }
 
-    [Required]
-    public string Author { get; set; }
+    [Required] public string Author { get; set; }
 
     [Required]
     [DisplayName("List Price")]
@@ -48,6 +46,5 @@ public class Product {
     [ValidateNever]
     public Category Category { get; set; }
 
-    [ValidateNever]
-    public string ImageUrl { get; set; }
+    [ValidateNever] public string ImageUrl { get; set; }
 }

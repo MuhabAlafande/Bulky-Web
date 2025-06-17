@@ -7,4 +7,10 @@
         <RootNamespace>Bulky.Utility</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+        <Reference Include="Microsoft.AspNetCore.Identity">
+            <HintPath>..\..\..\..\..\..\Users\Malafandi\.dotnet\shared\Microsoft.AspNetCore.App\8.0.17\Microsoft.AspNetCore.Identity.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
 </Project>

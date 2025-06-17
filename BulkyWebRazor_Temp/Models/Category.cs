@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BulkyWebRazor_Temp.Models;
 
-public class Category {
-    [Key]
-    public int Id { get; set; }
+public class Category
+{
+    [Key] public int Id { get; set; }
 
     [Required]
     [MaxLength(30)]

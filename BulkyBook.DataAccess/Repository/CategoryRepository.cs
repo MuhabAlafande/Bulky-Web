@@ -5,7 +5,8 @@ using Bulky.Models;
 
 namespace Bulky.DataAccess.Repository;
 
-public class CategoryRepository(ApplicationDbContext dbContext) : Repository<Category>(dbContext), ICategoryRepository {
+public class CategoryRepository(ApplicationDbContext dbContext) : Repository<Category>(dbContext), ICategoryRepository
+{
     private readonly ApplicationDbContext _dbContext = dbContext;
 
     public void Update(Category category) => _dbContext.Categories.Update(category);

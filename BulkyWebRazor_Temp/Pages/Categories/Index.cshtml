@@ -24,7 +24,8 @@
     </thead>
 
     <tbody>
-    @foreach (var category in Model.CategoryList.OrderBy(cat => cat.DisplayOrder)) {
+    @foreach (var category in Model.CategoryList.OrderBy(cat => cat.DisplayOrder))
+    {
         <tr>
             <td>@category.Name</td>
             <td>@category.DisplayOrder</td>

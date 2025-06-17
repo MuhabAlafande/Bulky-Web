@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bulky.DataAccess.Repository;
 
-public class Repository<T>(ApplicationDbContext dbContext) : IRepository<T> where T : class {
+public class Repository<T>(ApplicationDbContext dbContext) : IRepository<T> where T : class
+{
     private readonly DbSet<T> _dbSet = dbContext.Set<T>();
 
     public IEnumerable<T> GetAll() => _dbSet.ToList();

@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bulky.DataAccess.Repository;
 
-public class ProductRepository(ApplicationDbContext dbContext) : Repository<Product>(dbContext), IProductRepository {
+public class ProductRepository(ApplicationDbContext dbContext) : Repository<Product>(dbContext), IProductRepository
+{
     private readonly ApplicationDbContext _dbContext = dbContext;
 
     public new IEnumerable<Product> GetAll() => _dbContext.Products.Include(p => p.Category).ToList();
@@ -14,7 +15,8 @@ public class ProductRepository(ApplicationDbContext dbContext) : Repository<Prod
     public new Product? Get(Expression<Func<Product, bool>> predicate) =>
         _dbContext.Products.Include(p => p.Category).FirstOrDefault(predicate);
 
-    public void Update(Product product) {
+    public void Update(Product product)
+    {
         var productFromDb = _dbContext.Products.FirstOrDefault(p => p.Id == product.Id);
         if (productFromDb == null) return;
 
