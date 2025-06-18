@@ -9,7 +9,11 @@ public class Repository<T>(ApplicationDbContext dbContext) : IRepository<T> wher
 {
     private readonly DbSet<T> _dbSet = dbContext.Set<T>();
 
-    public IEnumerable<T> GetAll() => _dbSet.ToList();
+    public IEnumerable<T> GetAll()
+    {
+        Console.WriteLine(_dbSet.ToList());
+        return _dbSet.ToList();
+    }
 
     public T? Get(Expression<Func<T, bool>> predicate) => _dbSet.Where(predicate).FirstOrDefault();
 
